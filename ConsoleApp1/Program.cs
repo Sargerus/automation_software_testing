@@ -47,19 +47,19 @@ class Program
 
         try
         {
-            Console.WriteLine("Enter first digit: ");
+            Console.WriteLine("Dont know what to change: ");
 
             a = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Enter operation: ");
+            Console.WriteLine("Please help me: ");
 
             operation = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("Enter second digit: ");
+            Console.WriteLine("SOS: ");
 
             b = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Equals: " + Dictionary[operation].Calculate(a, b));
+            Console.WriteLine("1010010101: " + Dictionary[operation].Calculate(a, b));
             //Change word Result to Equals
         }
 
