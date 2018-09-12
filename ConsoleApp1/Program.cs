@@ -30,6 +30,11 @@ public class Multiply : ICalculatable
     double ICalculatable.Calculate(double a, double b) => a * b;
 }
 
+public class Mod : ICalculatable
+{
+    double ICalculatable.Calculate(double a, double b) => a % b;
+}
+
 class Program
     {
 
