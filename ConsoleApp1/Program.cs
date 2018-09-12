@@ -38,7 +38,9 @@ class Program
         static void Main(string[] args)
         {
 
-        double a = 0, b = 0;
+        double a = 0, b = 0, newdouble = 0;
+        int dummyint = 0;
+        //some new information
         char operation;
 
         FillDictionary();
