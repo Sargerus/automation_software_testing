@@ -57,7 +57,8 @@ class Program
 
             b = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Result: " + Dictionary[operation].Calculate(a, b));
+            Console.WriteLine("Equals: " + Dictionary[operation].Calculate(a, b));
+            //Change word Result to Equals
         }
 
         catch
