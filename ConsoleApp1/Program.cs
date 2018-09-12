@@ -12,34 +12,25 @@ public interface ICalculatable
 public class Sum : ICalculatable
 {
     double ICalculatable.Calculate(double a, double b) => a + b;
-    //Change row above for the 2/3 commit
+    
 }
 
 public class Substract : ICalculatable
 {
-    double ICalculatable.Calculate(double a, double b)
-    {
-        return a - b;
-    }
+    double ICalculatable.Calculate(double a, double b) => a - b;
 }
 
 public class Divide : ICalculatable
 {
-    double ICalculatable.Calculate(double a, double b)
-    {
-        return a / b;
-    }
+    double ICalculatable.Calculate(double a, double b) => a / b;
 }
 
 public class Multiply : ICalculatable
 {
-    double ICalculatable.Calculate(double a, double b)
-    {
-        return a * b;
-    }
+    double ICalculatable.Calculate(double a, double b) => a * b;
 }
 
-
+//All functions are lambda 3/3 commit
 
 class Program
     {
