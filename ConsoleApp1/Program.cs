@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 public interface ICalculatable
 {
     double Calculate(double a, double b);
-    //I add this row for the 1/3 commit
 }
 
 public class Sum : ICalculatable
 {
-    double ICalculatable.Calculate(double a, double b)
-    {
-        return a + b;
-    }
+    double ICalculatable.Calculate(double a, double b) => a + b;
+    //Change row above for the 2/3 commit
 }
 
 public class Substract : ICalculatable
