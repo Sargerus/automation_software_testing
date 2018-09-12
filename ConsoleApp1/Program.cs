@@ -30,8 +30,6 @@ public class Multiply : ICalculatable
     double ICalculatable.Calculate(double a, double b) => a * b;
 }
 
-//All functions are lambda 3/3 commit
-
 class Program
     {
 
