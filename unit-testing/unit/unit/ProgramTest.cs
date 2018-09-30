@@ -16,7 +16,7 @@ namespace unit
         public void NegativeValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1,value2,value3) == true)
-                Assert.Fail("Values cannot be less than 0");
+                Assert.Fail("Values cannot be less than 0 or check time passed");
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace unit
         public void ZeroValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1, value2, value3) == true)
-                Assert.Fail("Values cannot be equal 0");
+                Assert.Fail("Values cannot be equal 0 or check time passed");
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace unit
         public void MixedValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1, value2, value3) == true)
-                Assert.Fail("Values cannot be less or equal 0");
+                Assert.Fail("Values cannot be less or equal 0 or check time passed");
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace unit
         public void RightValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1, value2, value3) == false)
-                Assert.Fail("Something wrong with logic inside the method");
+                Assert.Fail("Something wrong with logic inside the method or check time passed");
         }
 
         [Test]
@@ -53,16 +53,23 @@ namespace unit
         public void NotRightValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1, value2, value3) == true)
-                Assert.Fail("Something wrong with logic inside the method");
+                Assert.Fail("Something wrong with logic inside the method or check time passed");
         }
 
         [Test]
         [TestCase(Double.MaxValue, Double.MaxValue, Double.MaxValue)]
-        [MaxTime(10)]
         public void OverflowValues(double value1, double value2, double value3)
         {
             if (Program.isTriangle(value1, value2, value3) == true)
-                Assert.Fail("Something wrong with logic inside the method");
+                Assert.Fail("Overlow in parameters");
+        }
+
+        [Test]
+        [TestCase(Double.PositiveInfinity, Double.PositiveInfinity, Double.MaxValue)]
+        public void InfiniteValues(double value1, double value2, double value3)
+        {
+            if (Program.isTriangle(value1, value2, value3) == true)
+                Assert.Fail("InfiniteVAlues");
         }
     }
 }
