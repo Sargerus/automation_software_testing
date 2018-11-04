@@ -4,6 +4,6 @@
 
 **/Debug
 
-/packages
+/packages/**
 
 *.sln
