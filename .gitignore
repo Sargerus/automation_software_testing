@@ -1,5 +1,6 @@
 #ignore visual studio files
 
+<<<<<<< HEAD
 *.suo
 *.user
 *.sln
@@ -14,3 +15,12 @@ bld/
 [Bb]in/
 [Oo]bj/
 packages/*
+=======
+/.vs
+
+**/Debug
+
+**/packages
+
+**/*.sln
+>>>>>>> 8c751d290427e0e52b21f69b20a78c1c5de1abeb
