@@ -6,10 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PageObject.PageObjects
+namespace PageObject.Pages
 {
-    public class TestingPage
+    public class MainPage
     {
+        private const string PAGE_URL = "https://www.momondo.by/";
+        private IWebDriver driver;
+
+        private CountriesSuffixes countriessuffixes;
+
+        [FindsBy(How = How.ClassName, Using = "locale-link")]
+        private IList<IWebElement> pagecountires;
+
+        [FindsBy(How = How.TagName, Using = "input")]
+        private IList<IWebElement> pageinputboxes;
 
         public enum Country
         {
@@ -40,22 +50,11 @@ namespace PageObject.PageObjects
 
         }
 
-
-        private IWebDriver driver;
-
-        private CountriesSuffixes countriessuffixes;
-
-        [FindsBy(How = How.ClassName, Using = "locale-link")]
-        private IList<IWebElement> pagecountires;
-
-        [FindsBy(How = How.TagName, Using = "input")]
-        IList<IWebElement> pageinputboxes;
-
-        public TestingPage(IWebDriver driver)
+        public MainPage(IWebDriver driver)
         {
             countriessuffixes.Initialize();
             this.driver = driver;
-            PageFactory.InitElements(driver, this);
+            PageFactory.InitElements(this.driver, this);
 
         }
 
@@ -67,7 +66,7 @@ namespace PageObject.PageObjects
 
         public void goToPage()
         {
-            driver.Navigate().GoToUrl("https://www.momondo.by/");
+            driver.Navigate().GoToUrl(PAGE_URL);
         }
 
         public void goToPage(string url)

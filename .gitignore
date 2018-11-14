@@ -1,9 +1,16 @@
 #ignore visual studio files
 
-/.vs
-
-**/Debug
-
-/packages/**
-
+*.suo
+*.user
 *.sln
+*.nupkg
+
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+x64/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+packages/*
