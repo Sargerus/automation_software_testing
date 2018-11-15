@@ -1,5 +1,7 @@
 ﻿using Framework.Pages;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,62 +21,61 @@ namespace Framework.Steps
 
         public void CloseBrowser()
         {
-            CheckDriverExists();
             WebDriver.WebDriver.CloseBrowser();
         }
-
-        private void CheckDriverExists()
-        {
-            if (driver == null)
-                driver = WebDriver.WebDriver.GetInstance();
-        }
-
+        
         public string GetRegion()
         {
-            CheckDriverExists();
             RegionPage regionPage = new RegionPage(driver);
             regionPage.goToPage();
+
             return regionPage.getRegion();
         }
 
         public bool CheckLanguage(string region)
         {
-            CheckDriverExists();
+            bool success = true;
+
             MainPage mainpage = new MainPage(driver);
             mainpage.goToPage();
             string URL = mainpage.getURLByContry(MainPage.Country.Germany);
             mainpage.goToPage(URL);
+
             if (mainpage.getPageRegion(region) == null)
-                return false;
-            return true;
+                success = false;
+
+            return success;
         }
 
         public bool ApplyFilersAndCheckResult(string destination)
         {
             SearchPage searchPage = new SearchPage(driver);
             searchPage.goToPage(destination);
+
             return searchPage.CheckFields(destination);
         }
 
         public bool CheckBeachRest()
         {
-            CheckDriverExists();
             TripFinderPage tripFinderPage = new TripFinderPage(driver);
+            tripFinderPage.goToPage();
             tripFinderPage.selectRestTypeBeach();
+
             return tripFinderPage.CheckResultedList();
         }
 
         public bool CheckResulredList()
         {
             TripFinderPage tripFinderPage = new TripFinderPage(driver);
-            return tripFinderPage.checkFirstfromResultedList();
+
+            return tripFinderPage.CheckFirstfromResultedList();
         }
 
-        public bool OpenHotelPageFromSearch()
+        public bool OpenHotelPageFromSearchPage()
         {
             bool success = true;
-            SearchPage sp = new SearchPage(driver);
 
+            SearchPage sp = new SearchPage(driver);
             string cityto = driver.FindElement(By.XPath("(//input)[6]")).GetAttribute("value");
             cityto = cityto.Substring(0,cityto.IndexOf(' '));
             IWebElement hotels = driver.FindElement(By.XPath("//li[@class='col js-vertical-hotels _bd _v _CZ _mK']"));
@@ -88,6 +89,61 @@ namespace Framework.Steps
             return success;
         }
 
+        public bool Open2TabsAndCheckCosts(string city)
+        {
+            bool success = true;
+
+            MainPage mainpage = new MainPage(driver);
+            mainpage.goToPage();
+            mainpage.EnterDestinationAndSearch(city);
+            WaitForPriceElement();
+
+            string costTocompare = driver.FindElement(By.XPath("//span[@class='price option-text']")).Text;
+
+            //it's not working in firefox
+            //var el = driver.FindElement(By.TagName("body"));
+            //el.SendKeys(Keys.Control + 'T');
+            //driver.SwitchTo().Window(driver.WindowHandles.Last());
+
+            mainpage.goToPage();
+            mainpage.EnterDestinationAndSearch(city);
+            WaitForPriceElement();
+            success = costTocompare.Equals(driver.FindElement(By.XPath("//span[@class='price option-text']")).Text);
+
+            return success;
+        }
+
+        private void WaitForPriceElement()
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//span[@class='price option-text']")));
+        }
+
+        public bool ValidateMoreResultsButton(string v)
+        {
+            bool success = true;
+
+            MainPage mainpage = new MainPage(driver);
+            mainpage.goToPage();
+            mainpage.EnterDestinationAndSearch(v);
+
+            SearchPage sp = new SearchPage(driver);
+            success = sp.ValidateSearchAndMoreButton();
+
+            return success;
+
+        }
+
+        public bool ValidateFieldMainPage(string city)
+        {
+            MainPage mainpage = new MainPage(driver);
+            mainpage.goToPage();
+            mainpage.EnterDestinationAndSearch(city);
+            SearchPage sp = new SearchPage(driver);
+
+            return sp.CheckErrorMessage();
+        }
+
         public bool TestTwoStarHotels()
         {
             HotelPage hotelpage = new HotelPage(driver);
@@ -98,13 +154,18 @@ namespace Framework.Steps
         public bool goToOZONOrderPage()
         {
             bool success = true;
-            SearchPage sp = new SearchPage(driver);
 
+            SearchPage sp = new SearchPage(driver);
             sp.TryToOrderOnOZON();
             
-
             return success;
+        }
 
+        public bool OrderCar(string city)
+        {
+            OrderCarPage ocp = new OrderCarPage(driver);
+
+            return ocp.Order(city);
         }
     }
 }

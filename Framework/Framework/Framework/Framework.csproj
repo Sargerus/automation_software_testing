@@ -61,6 +61,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Pages\HotelPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
+    <Compile Include="Pages\OrderCarPage.cs" />
     <Compile Include="Pages\RegionPage.cs" />
     <Compile Include="Pages\SearchPage.cs" />
     <Compile Include="Pages\TripFinderPage.cs" />
@@ -71,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

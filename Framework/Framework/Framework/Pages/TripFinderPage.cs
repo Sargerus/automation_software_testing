@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace Framework.Pages
         private const string PAGE_URL = "https://www.momondo.by/trip-finder/";
 
         [FindsBy(How = How.XPath, Using = "//div[@data-option-id='2']")]
-        private IWebElement beach;
+        private IWebElement beachelement;
 
         private List<IWebElement> searchresult;
 
@@ -33,25 +35,21 @@ namespace Framework.Pages
 
         public void selectRestTypeBeach()
         {
-            goToPage();
-            beach.Click();
+            beachelement.Click();
         }
 
         public bool CheckResultedList()
         {
             bool success = true;
-            //TODO change minsk to list
             Thread.Sleep(2000);
-            var searchresult = driver.FindElements(By.XPath("//span[@class='city']"));
-            var city = searchresult.Where(g => g.Text.Equals("Минск")).Select(g => g).First();
-
-            if (city != null)
+            var searchresult = driver.FindElements(By.XPath("//span[@class='city'][1]"));
+            if (searchresult.Equals("Минск"))
                 success = false;
 
             return success;
         }
 
-        public bool checkFirstfromResultedList()
+        public bool CheckFirstfromResultedList()
         {
             bool success = true;
 

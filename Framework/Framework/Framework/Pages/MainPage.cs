@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,12 @@ namespace Framework.Pages
 
         [FindsBy(How = How.TagName, Using = "button")]
         private IList<IWebElement> buttons;
+
+        [FindsBy(How = How.XPath, Using = "//input[@aria-label='Место назначения']")]
+        private IWebElement destinationbox;
+
+        [FindsBy(How = How.XPath, Using = "//button[@aria-label='Поиск']")]
+        private IWebElement searchbutton;
 
         private DateTime selectedDate;
 
@@ -94,16 +102,20 @@ namespace Framework.Pages
 
         }
 
-        public void applyFilters(SearchPage sp)
+        public void EnterDestinationAndSearch(string v)
         {
-            IWebElement departdate = driver.FindElement(By.XPath("//div[@aria-label='Дата вылета']"));
+            //var destinationbox = pageinputboxes.Where(g => g.GetAttribute("id").EndsWith("-destination")).Select(g => g).First();
+            destinationbox.Click();
+            destinationbox.SendKeys(v);
+            Thread.Sleep(500);
+            destinationbox.SendKeys(Keys.Enter);
+            Thread.Sleep(500);
+            searchbutton.Click();
+        }
 
-            departdate.Click();
-
-            sp.departdate = departdate.Text;//driver.FindElement(By.XPath("//div[@class='col-day highlighted selected endDate']")).Text;
-
-            var submitbutton = buttons.Where(g => g.GetAttribute("id").EndsWith("-submit")).First();
-            submitbutton.Click();
+        public void SubmitSearch()
+        {
+            searchbutton.Click();
         }
     }
 }
