@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace Framework.WebDriver
         {
             if (driver == null)
             {
-                driver = new FirefoxDriver();
+                var dir = Directory.GetCurrentDirectory() + "\\Framework\\Utils";
+                driver = new FirefoxDriver(System.IO.Path.GetFullPath(dir));
                 driver.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
                 driver.Manage().Timeouts().PageLoad.Add(TimeSpan.FromSeconds(30));
             }
