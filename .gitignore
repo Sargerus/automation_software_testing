@@ -3,7 +3,6 @@
 <<<<<<< HEAD
 *.suo
 *.user
-*.sln
 *.nupkg
 
 [Dd]ebug/
